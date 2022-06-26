@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Comparador de nomes</title>
+	
+	<meta charset="utf-8">
+	<meta name="description" content="Conteúdo do meu site.">
+	<meta name="keywords" content="palavras,separadas,por,virgula">
+	<meta name="author" content="Fernando525285" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0" />
+
+	<style type="text/css">
+
+		*{
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		
+		}
+
+		html,body{
+			height: 100%;
+		}
+
+        body{
+            background-color: rgb(143, 141, 141);
+        }
+
+		#container1{
+			max-width: 1920px;
+			width: 100%;
+			text-align:center;
+			vertical-align: top;
+			margin-top: 10px;
+		}
+		#texto1{
+			display:inline-block;
+			vertical-align: top;
+			width:38%;
+		}
+
+		#comparar{
+			display: inline-block;
+			vertical-align: top;
+			width:18%;
+            font-weight: bold;
+            cursor: pointer;
+            height: 40px;
+            border-radius: 10px;
+		}
+
+		#caixa{
+			display: inline-block;
+			vertical-align: top;
+		    width: 38%;
+			border: 1px solid #ccc;
+            background-color: white;
+		}
+
+	</style>
+
+</head>
+
+<body>
+    <div id="container1">
+
+     <input type = "text" name = "texto" id = "texto1" placeholder="Copie a lista de nomes e cole aqui."/>
+     <button id = "comparar">Comparar</button>
+     <div id="caixa"></div>
+     
+    </div>
+<script>  	
+const comparar = document.getElementById('comparar');
+const caixa = document.getElementById('caixa');
+const texto1 = document.getElementById('texto1');
+//======================================================================================================================
+function compara(){
+    //==================================================================================================================
+    function criaDiv(x){
+        var div = document.createElement('div'); // cria div
+        div.setAttribute('id','linha'+x); // atribui id linha+indice
+        document.getElementById('caixa').appendChild(div); // adiciona a div dentro da div caixa
+    }
+
+    function textoNaDiv(x){
+        document.getElementById('linha'+x).innerText = parttexto[x]+'-'+parttexto[x+1]+'\n'; // adiciona texto na div
+    }
+
+    function corTexto(x, cor){
+        document.getElementById('linha'+x).style.color = cor; // adiciona cor ao texto da div linha + indice
+    }
+    //==================================================================================================================
+    var textointeiro =  texto1.value;
+    var parttexto = textointeiro.split(/(?:->| )+/); // utilizando varios separadores como um só
+    //==================================================================================================================
+    for(let i=0, tamanho = parttexto.length; tamanho > i; i=i+2 ){
+        if(parttexto[i]==parttexto[i+1]){
+            console.log('igual ',parttexto[i],' com ',parttexto[i+1]);
+            criaDiv(i);
+            textoNaDiv(i);
+            corTexto(i, 'green');
+        }
+        else{
+            console.log('diferente ',parttexto[i],' com ',parttexto[i+1]);
+            criaDiv(i);
+            textoNaDiv(i);
+            corTexto(i, 'red');
+        }
+    }   
+    console.log(caixa);
+    //==================================================================================================================
+}
+comparar.addEventListener('click', compara);	
+</script>
+</body>
+</html>
